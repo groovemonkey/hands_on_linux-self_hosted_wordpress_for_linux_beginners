@@ -236,5 +236,9 @@ Paste in the content below:
     [openssl]
 
 
+## You're not done yet...
 
+... but if you were, you'd restart php-fpm right now, with:
+
+    systemctl restart php5-fpm
 

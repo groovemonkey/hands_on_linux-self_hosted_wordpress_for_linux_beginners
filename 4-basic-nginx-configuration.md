@@ -1,13 +1,13 @@
-Basic nginx Configuration
+# Basic nginx Configuration
 
 
-# rename original configuration file
+## Rename original configuration file
 
-cd /etc/nginx/
-mv nginx.conf nginx.conf.ORIG
+    cd /etc/nginx/
+    mv nginx.conf nginx.conf.ORIG
 
 
-# Create a new nginx configuration file using nano, with:
+## Create a new nginx configuration file using nano, with:
     nano nginx.conf
 
 Paste (Ctrl-Shift-v in Gnome terminal, right-click in PuTTy) the following data into the file:
@@ -56,7 +56,7 @@ Paste (Ctrl-Shift-v in Gnome terminal, right-click in PuTTy) the following data 
 
 
 
-Now create the cache directory:
+## Now create the cache directory:
 
     mkdir -p /usr/share/nginx/cache/fcgi
 

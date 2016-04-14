@@ -7,7 +7,7 @@
     systemctl enable mysql nginx php5-fpm monit
 
 
-## old syntax (for systems not using systemd)
+## Old syntax (for systems not using systemd)
 
     service <service> <action>
     service mysql status
