@@ -196,11 +196,11 @@ Now it's time to actually download and install the WordPress application.
 
 ## Restart your services
 
-### On Ubuntu 16.04 and newer
+#### On Ubuntu 16.04 and newer
 
     systemctl restart php7.0-fpm nginx
 
-### On Ubuntu 15.10 or older
+#### On Ubuntu 15.10 or older
 
     systemctl restart php5-fpm nginx
 

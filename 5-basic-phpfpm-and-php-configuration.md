@@ -4,12 +4,12 @@
 
 ## Install the PHP extensions we need for WordPress
 
-### On Ubuntu 16.04 and later
+#### On Ubuntu 16.04 and later
 
     apt-get install php-json php-xmlrpc php-curl php-gd php-xml
 
 
-### On Ubuntu 15.10 and earlier
+#### On Ubuntu 15.10 and earlier
 
     apt-get install php5-json php5-xmlrpc php5-curl php5-gd php-xml-rss
 
@@ -22,13 +22,13 @@
 
 ## Rename the main php-fpm configuration file
 
-### On Ubuntu 16.04 and later
+#### On Ubuntu 16.04 and later
 
     mv /etc/php/7.0/fpm/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf.ORIG
     nano /etc/php/7.0/fpm/php-fpm.conf
 
 
-### On Ubuntu 15.10 and earlier
+#### On Ubuntu 15.10 and earlier
 
     mv /etc/php5/fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf.ORIG
     nano /etc/php5/fpm/php-fpm.conf
@@ -36,7 +36,7 @@
 
 ## Add content to the new php-fpm configuration file in /etc/php5/fpm/php-fpm.conf:
 
-### On Ubuntu 16.04 and later
+#### On Ubuntu 16.04 and later
 
     [global]
     pid = /run/php-fpm.pid
@@ -70,7 +70,7 @@ Create a *new* default pool configuration at /etc/php/7.0/fpm/pool.d/www.conf wi
 
 
 
-### On Ubuntu 15.10 and earlier
+#### On Ubuntu 15.10 and earlier
 
     [global]
     pid = /run/php-fpm.pid
@@ -104,11 +104,11 @@ Create a default pool configuration at /etc/php5/fpm/pool.d/www.conf with the fo
 
 Rename the original file here and then create a new one:
 
-### On Ubuntu 16.04 and later
+#### On Ubuntu 16.04 and later
 
     cd /etc/php/7.0/fpm/
 
-### On Ubuntu 15.10 and earlier
+#### On Ubuntu 15.10 and earlier
 
     cd /etc/php5/fpm/
 

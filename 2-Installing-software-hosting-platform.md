@@ -20,7 +20,7 @@ Make sure to install the mysql-server package FIRST (before installing the other
     apt-get install mysql-server php5-mysql php5-fpm monit
 
 
-## install nginx's custom repository (PPA)
+## Install nginx's custom repository (PPA)
 
     add-apt-repository ppa:nginx/stable
     apt-get update

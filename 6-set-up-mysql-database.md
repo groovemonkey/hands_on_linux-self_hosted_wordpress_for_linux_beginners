@@ -4,6 +4,7 @@ You don't need to do this on Ubuntu 16.04.
 
     mysql_install_db
 
+The rest of the instructions on this page will work regardless of your Ubuntu version.
 
 ## Create mysql root pass
 
