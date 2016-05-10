@@ -20,23 +20,14 @@
     mkdir /var/run/php-fpm
 
 
-## Rename the main php-fpm configuration file
+## Create the PHP and php-fpm configuration files (and back up the originals)
 
 #### On Ubuntu 16.04 and later
 
     mv /etc/php/7.0/fpm/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf.ORIG
     nano /etc/php/7.0/fpm/php-fpm.conf
 
-
-#### On Ubuntu 15.10 and earlier
-
-    mv /etc/php5/fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf.ORIG
-    nano /etc/php5/fpm/php-fpm.conf
-
-
-## Add content to the new php-fpm configuration file in /etc/php5/fpm/php-fpm.conf:
-
-#### On Ubuntu 16.04 and later
+Add the following content:
 
     [global]
     pid = /run/php-fpm.pid
@@ -72,13 +63,17 @@ Create a *new* default pool configuration at /etc/php/7.0/fpm/pool.d/www.conf wi
 
 #### On Ubuntu 15.10 and earlier
 
+    mv /etc/php5/fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf.ORIG
+    nano /etc/php5/fpm/php-fpm.conf
+
+Add the following content:
+
     [global]
     pid = /run/php-fpm.pid
     error_log = /var/log/php5-fpm.log
     include=/etc/php5/fpm/pool.d/*.conf
 
-
-Create a default pool configuration at /etc/php5/fpm/pool.d/www.conf with the following content:
+Create a *new* default pool configuration at /etc/php5/fpm/pool.d/www.conf with the following content:
 
     [default]
     security.limit_extensions = .php
@@ -94,9 +89,6 @@ Create a default pool configuration at /etc/php5/fpm/pool.d/www.conf with the fo
     pm.min_spare_servers = 5
     pm.max_spare_servers = 20
     pm.max_requests = 500
-
-
-
 
 
 
@@ -301,5 +293,10 @@ Paste in the content below:
 
 ... but if you were, you'd restart php-fpm right now, with:
 
-    systemctl restart php5-fpm
+#### On Ubuntu 16.04 and later
 
+    systemctl restart php7.0-fpm
+
+#### On Ubuntu 15.10 and earlier
+
+    systemctl restart php5-fpm
