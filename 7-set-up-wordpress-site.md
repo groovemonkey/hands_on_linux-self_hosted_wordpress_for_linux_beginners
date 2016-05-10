@@ -6,6 +6,7 @@ Replace all instances of 'yourusername' with the system username that you'll use
 ## Create a system user for this site
 
     adduser yourusername
+    mkdir -p /home/yourusername/logs
 
 
 ## Create nginx vhost config file
@@ -95,15 +96,20 @@ Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all oc
 
 
 
+## Disable default nginx vhost (only the first time you set up a website)
 
-## Disable default nginx vhost
-
-    rm /etc/nginx/sites-enabled/default 
+    rm /etc/nginx/sites-enabled/default
 
 
 ## Create php-fpm vhost pool config file
 
-Add the following content to a new php-fpm pool configuration file, at /etc/php5/fpm/pool.d/yoursitename.conf -- replace all occurrences of "yoursitename" with your truncated domain name, and all occurrences of "yourusername" with the name of the system user you've created for this website:
+Add the following content to a new php-fpm pool configuration file.
+
+*On Ubuntu 16.04 and later* this file should be created at /etc/php/7.0/fpm/pool.d/yoursitename.conf
+*On Ubuntu 15.10 and before* this file should be created at /etc/php5/fpm/pool.d/yoursitename.conf
+
+Replace all occurrences of "yoursitename" in the configuration file content below with your truncated domain name, and all occurrences of "yourusername" with the name of the system user you've created for this website.
+
 
     [yoursitename]
     listen = /var/run/php-fpm/yoursitename.sock
@@ -125,11 +131,9 @@ Add the following content to a new php-fpm pool configuration file, at /etc/php5
 
 
 
-
 ## Create logfile
 
     touch /home/yourusername/logs/phpfpm.log
-
 
 
 
@@ -177,10 +181,9 @@ Now it's time to actually download and install the WordPress application.
     mv wordpress public_html
 
 
-### Create the site log directory
+### Exit the unprivileged user's shell and become root again 
 
-    mkdir /home/yourusername/logs
-    chown yourusername:www-data /home/yourusername/public_html
+    ctrl-d (+ENTER)
 
 
 ### Set proper file permissions on your site files
@@ -191,14 +194,23 @@ Now it's time to actually download and install the WordPress application.
     find . -type f -exec chmod 644 {} \;
 
 
-### Secure the wp-config.php file so other users can’t read DB credentials
-
-    chmod 640 wp-config.php
-
-
-
-
 ## Restart your services
 
+### On Ubuntu 16.04 and newer
+
+    systemctl restart php7.0-fpm nginx
+
+### On Ubuntu 15.10 or older
+
     systemctl restart php5-fpm nginx
+
+
+## ONCE YOU HAVE RUN THE WORDPRESS INSTALLER...
+
+You'll be able to run the installer by navigating to your server IP address in a browser. Once you've done that...
+
+### Secure the wp-config.php file so other users can’t read DB credentials
+
+    chmod 640 /home/yourusername/public_html/wp-config.php
+
 

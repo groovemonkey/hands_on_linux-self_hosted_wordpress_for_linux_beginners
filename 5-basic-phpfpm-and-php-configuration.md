@@ -4,7 +4,15 @@
 
 ## Install the PHP extensions we need for WordPress
 
+### On Ubuntu 16.04 and later
+
+    apt-get install php-json php-xmlrpc php-curl php-gd php-xml
+
+
+### On Ubuntu 15.10 and earlier
+
     apt-get install php5-json php5-xmlrpc php5-curl php5-gd php-xml-rss
+
 
 
 ## Ensure that the directory for php-fpm sockets exists
@@ -14,11 +22,55 @@
 
 ## Rename the main php-fpm configuration file
 
+### On Ubuntu 16.04 and later
+
+    mv /etc/php/7.0/fpm/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf.ORIG
+    nano /etc/php/7.0/fpm/php-fpm.conf
+
+
+### On Ubuntu 15.10 and earlier
+
     mv /etc/php5/fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf.ORIG
     nano /etc/php5/fpm/php-fpm.conf
 
 
 ## Add content to the new php-fpm configuration file in /etc/php5/fpm/php-fpm.conf:
+
+### On Ubuntu 16.04 and later
+
+    [global]
+    pid = /run/php-fpm.pid
+    error_log = /var/log/php-fpm.log
+    include=/etc/php/7.0/fpm/pool.d/*.conf
+
+
+Rename the default pool conf to keep the original:
+
+    mv /etc/php/7.0/fpm/pool.d/www.conf /etc/php/7.0/fpm/pool.d/www.conf.ORIG
+
+
+Create a *new* default pool configuration at /etc/php/7.0/fpm/pool.d/www.conf with the following content:
+
+    # nano /etc/php/7.0/fpm/pool.d/www.conf
+
+    [default]
+    security.limit_extensions = .php
+    listen = /var/run/php-fpm/yourserverhostname.sock
+    listen.owner = www-data
+    listen.group = www-data
+    listen.mode = 0660
+    user = www-data
+    group = www-data
+    pm = dynamic
+    pm.max_children = 75
+    pm.start_servers = 8
+    pm.min_spare_servers = 5
+    pm.max_spare_servers = 20
+    pm.max_requests = 500
+
+
+
+### On Ubuntu 15.10 and earlier
 
     [global]
     pid = /run/php-fpm.pid
@@ -26,8 +78,7 @@
     include=/etc/php5/fpm/pool.d/*.conf
 
 
-    Create a default pool configuration
-    at /etc/php5/fpm/pool.d/www.conf
+Create a default pool configuration at /etc/php5/fpm/pool.d/www.conf with the following content:
 
     [default]
     security.limit_extensions = .php
@@ -53,9 +104,19 @@
 
 Rename the original file here and then create a new one:
 
-    cd /etc/php5/fpm
+### On Ubuntu 16.04 and later
+
+    cd /etc/php/7.0/fpm/
+
+### On Ubuntu 15.10 and earlier
+
+    cd /etc/php5/fpm/
+
+### (On both):
+
     mv php.ini php.ini.ORIG
     nano php.ini
+
 
 Paste in the content below:
 
