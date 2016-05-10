@@ -10,7 +10,7 @@ Create your own small purpose-built 'programs' -- things you string together fro
     ls -alh # .EVILHACKERFILE_bwaaahahahahaaa
 
 
-## input and output redirection
+## Input and Output redirection
     echo "hi there" > logfile.log  # mistake! will overwrite each time
     echo "hi again" >> logfile.log
 
@@ -32,10 +32,10 @@ search for stuff and only print out matching lines
     grep "addr" /etc/network/interfaces
 
 
-## pipes -- tie together multiple commands
+## Pipes -- tie together multiple commands
 Got a command? Want to refine, sort, or continue doing stuff to its output? Use a pipe (or multiple pipes!)
 
-grep "addr" /etc/network/interfaces | grep 192
+    grep "addr" /etc/network/interfaces | grep 192
 
 
 
