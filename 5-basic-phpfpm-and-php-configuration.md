@@ -6,16 +6,14 @@
 
 #### On Ubuntu 16.04 and later
 
-    apt-get install php-json php-xmlrpc php-curl php-gd php-xml
+    apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring php-mcrypt php-xml
 
 
 #### On Ubuntu 15.10 and earlier
 
     apt-get install php5-json php5-xmlrpc php5-curl php5-gd php-xml-rss
 
-
-
-## Ensure that the directory for php-fpm sockets exists
+Now ensure that the directory for php-fpm sockets exists
 
     mkdir /var/run/php-fpm
 
@@ -46,7 +44,7 @@ Create a *new* default pool configuration at /etc/php/7.0/fpm/pool.d/www.conf wi
 
     [default]
     security.limit_extensions = .php
-    listen = /var/run/php-fpm/yourserverhostname.sock
+    listen = /var/run/php/yourserverhostname.sock
     listen.owner = www-data
     listen.group = www-data
     listen.mode = 0660

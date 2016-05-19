@@ -6,7 +6,7 @@
 #### On Ubuntu 16.04 and later
 
     systemctl start nginx php7.0-fpm monit
-    systemctl enable mysql nginx php7.0-fpm
+    systemctl enable mysql nginx php7.0-fpm monit
 
 #### On Ubuntu 15.10 and earlier
 
