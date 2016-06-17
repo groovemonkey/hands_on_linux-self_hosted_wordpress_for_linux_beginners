@@ -52,6 +52,11 @@ This is *different* for new versions of Ubuntu (16.04+) and older versions of Ub
                   set $no_cache 1;
                 }
 
+                # WooCommerce stuff should not be cached
+                if ($request_uri ~* "/store.*|/cart.*|/my-account.*|/checkout.*|/addons.*") {
+                  set $no_cache 1;
+                }
+
                 # If we are the admin, make sure nothing
                 # gets cached, so no weird stuff will happen
                 if ($http_cookie ~* "wordpress_logged_in_") {
@@ -136,6 +141,11 @@ This is *different* for new versions of Ubuntu (16.04+) and older versions of Ub
 
                 # Admin stuff should not be cached
                 if ($request_uri ~* "/(wp-admin/|wp-login.php)") {
+                  set $no_cache 1;
+                }
+
+                # WooCommerce stuff should not be cached
+                if ($request_uri ~* "/store.*|/cart.*|/my-account.*|/checkout.*|/addons.*") {
                   set $no_cache 1;
                 }
 
