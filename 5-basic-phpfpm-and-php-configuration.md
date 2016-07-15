@@ -71,7 +71,12 @@ Add the following content:
     error_log = /var/log/php5-fpm.log
     include=/etc/php5/fpm/pool.d/*.conf
 
-Create a *new* default pool configuration at /etc/php5/fpm/pool.d/www.conf with the following content:
+Create a *new* default pool configuration:
+
+    mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/wwwconf.ORIG
+    nano /etc/php5/fpm/pool.d/www.conf
+
+Add the following content:
 
     [default]
     security.limit_extensions = .php
@@ -297,4 +302,4 @@ Paste in the content below:
 
 #### On Ubuntu 15.10 and earlier
 
-    systemctl restart php5-fpm
+    service php5-fpm restart

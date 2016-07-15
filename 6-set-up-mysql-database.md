@@ -19,6 +19,6 @@ Delete anonymous user, remove test DB, set root passwd, etc. Answer “Y” to a
 
 ## Restart MySQL
 
-    systemctl restart mysql
+    service mysql restart
 
 
