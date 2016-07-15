@@ -330,7 +330,8 @@ Now it's time to actually download and install the WordPress application.
 
 #### On Ubuntu 15.10 or older
 
-    systemctl restart php5-fpm nginx
+    service php5-fpm restart
+    service nginx restart
 
 
 ## ONCE YOU HAVE RUN THE WORDPRESS INSTALLER...
