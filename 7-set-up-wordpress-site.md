@@ -67,7 +67,7 @@ This is *different* for new versions of Ubuntu (16.04+) and older versions of Ub
                 fastcgi_no_cache $no_cache;
                 fastcgi_cache_bypass $no_cache;
                 fastcgi_cache microcache;
-                fastcgi_cache_key $server_name|$request_uri|$args;
+                fastcgi_cache_key $scheme$request_method$server_name$request_uri$args;
                 fastcgi_cache_valid 200 60m;
                 fastcgi_cache_valid 404 10m;
                 fastcgi_cache_use_stale updating;
