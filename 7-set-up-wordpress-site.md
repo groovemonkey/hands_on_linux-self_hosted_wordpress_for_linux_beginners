@@ -275,8 +275,7 @@ Log into your mysql database with the root account, using the password you creat
 This will prompt you for the MySQL root user’s password, and then give you a database shell. This shell will let you enter the following commands to create the WordPress database and user, along with appropriate permissions. Swap out ‘yoursite’ for your truncated domain name. This name can't contain any punctuation or special characters. Replace 'chooseapassword' with a strong password:
 
     CREATE DATABASE yoursite;
-    CREATE USER yoursite@localhost;
-    SET PASSWORD FOR yoursite@localhost= PASSWORD("chooseapassword");
+    CREATE USER yoursite@localhost IDENTIFIED BY 'chooseapassword';
     GRANT ALL PRIVILEGES ON yoursite.* TO yoursite@localhost IDENTIFIED BY 'chooseapassword';
     FLUSH PRIVILEGES;
 
