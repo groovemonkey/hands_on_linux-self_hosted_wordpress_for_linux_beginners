@@ -6,7 +6,7 @@
 
 #### On Ubuntu 16.04 and later
 
-    apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring php-mcrypt php-xml
+    apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring php-xml
 
 
 #### On Ubuntu 15.10 and earlier
@@ -285,7 +285,6 @@ Paste in the content below:
     [sysvshm]
     [ldap]
     ldap.max_links = -1
-    [mcrypt]
     [dba]
     [opcache]
     [curl]
