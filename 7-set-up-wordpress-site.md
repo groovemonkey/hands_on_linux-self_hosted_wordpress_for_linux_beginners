@@ -272,8 +272,14 @@ Log into your mysql database with the root account, using the password you creat
 
     mysql -u root -p
 
-This will prompt you for the MySQL root user’s password, and then give you a database shell. This shell will let you enter the following commands to create the WordPress database and user, along with appropriate permissions. Swap out ‘yoursite’ for your truncated domain name. This name can't contain any punctuation or special characters. Replace 'chooseapassword' with a strong password:
+This will prompt you for the MySQL root user’s password, and then give you a database shell. This shell will let you enter the following commands to create the WordPress database and user, along with appropriate permissions. Swap out ‘yoursite’ for your truncated domain name. This name can't contain any punctuation or special characters.
 
+Replace 'chooseapassword' with a strong password. Unfortunately MySQL hates security and will complain if the password is longer than 16 characters, so I suggest using the same command that we used to create the root password:
+
+    # Create password
+    echo -n @ && cat /dev/urandom | env LC_CTYPE=C tr -dc [:alnum:] | head -c 15 && echo
+
+    # Log into mysql
     CREATE DATABASE yoursite;
     CREATE USER yoursite@localhost IDENTIFIED BY 'chooseapassword';
     GRANT ALL PRIVILEGES ON yoursite.* TO yoursite@localhost IDENTIFIED BY 'chooseapassword';
