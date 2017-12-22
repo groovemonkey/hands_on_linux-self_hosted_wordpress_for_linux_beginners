@@ -4,14 +4,7 @@
 
 ## Install the PHP extensions we need for WordPress
 
-#### On Ubuntu 16.04 and later
-
     apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring php-xml
-
-
-#### On Ubuntu 15.10 and earlier
-
-    apt-get install php5-json php5-xmlrpc php5-curl php5-gd php-xml-rss
 
 Now ensure that the directory for php-fpm sockets exists
 
@@ -19,8 +12,6 @@ Now ensure that the directory for php-fpm sockets exists
 
 
 ## Create the PHP and php-fpm configuration files (and back up the originals)
-
-#### On Ubuntu 16.04 and later
 
     mv /etc/php/7.0/fpm/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf.ORIG
     nano /etc/php/7.0/fpm/php-fpm.conf
@@ -32,89 +23,20 @@ Add the following content:
     error_log = /var/log/php-fpm.log
     include=/etc/php/7.0/fpm/pool.d/*.conf
 
+Remove the original (default) pool:
 
-Rename the default pool conf to keep the original:
-
-    mv /etc/php/7.0/fpm/pool.d/www.conf /etc/php/7.0/fpm/pool.d/www.conf.ORIG
-
-
-Create a *new* default pool configuration at /etc/php/7.0/fpm/pool.d/www.conf with the following content:
-
-    # nano /etc/php/7.0/fpm/pool.d/www.conf
-
-    [default]
-    security.limit_extensions = .php
-    listen = /var/run/php/yourserverhostname.sock
-    listen.owner = www-data
-    listen.group = www-data
-    listen.mode = 0660
-    user = www-data
-    group = www-data
-    pm = dynamic
-    pm.max_children = 75
-    pm.start_servers = 8
-    pm.min_spare_servers = 5
-    pm.max_spare_servers = 20
-    pm.max_requests = 500
-
-
-
-#### On Ubuntu 15.10 and earlier
-
-    mv /etc/php5/fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf.ORIG
-    nano /etc/php5/fpm/php-fpm.conf
-
-Add the following content:
-
-    [global]
-    pid = /run/php-fpm.pid
-    error_log = /var/log/php5-fpm.log
-    include=/etc/php5/fpm/pool.d/*.conf
-
-Create a *new* default pool configuration:
-
-    mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/wwwconf.ORIG
-    nano /etc/php5/fpm/pool.d/www.conf
-
-Add the following content:
-
-    [default]
-    security.limit_extensions = .php
-    listen = /var/run/php-fpm/yourserverhostname.sock
-    listen.owner = www-data
-    listen.group = www-data
-    listen.mode = 0660
-    user = www-data
-    group = www-data
-    pm = dynamic
-    pm.max_children = 75
-    pm.start_servers = 8
-    pm.min_spare_servers = 5
-    pm.max_spare_servers = 20
-    pm.max_requests = 500
-
+    rm /etc/php/7.0/fpm/pool.d/www.conf
 
 
 ## Copy php.ini
 
 Rename the original file here and then create a new one:
 
-#### On Ubuntu 16.04 and later
-
     cd /etc/php/7.0/fpm/
-
-#### On Ubuntu 15.10 and earlier
-
-    cd /etc/php5/fpm/
-
-### (On both):
-
     mv php.ini php.ini.ORIG
     nano php.ini
 
-
 Paste in the content below:
-
 
     [PHP]
     engine = On
@@ -295,10 +217,5 @@ Paste in the content below:
 
 ... but if you were, you'd restart php-fpm right now, with:
 
-#### On Ubuntu 16.04 and later
-
     systemctl restart php7.0-fpm
 
-#### On Ubuntu 15.10 and earlier
-
-    service php5-fpm restart
