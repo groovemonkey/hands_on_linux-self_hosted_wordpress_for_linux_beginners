@@ -8,13 +8,7 @@
     systemctl start nginx php7.0-fpm monit
     systemctl enable mysql nginx php7.0-fpm monit
 
-#### On Ubuntu 15.10 and earlier
-
-    systemctl start nginx php5-fpm monit
-    systemctl enable mysql nginx php5-fpm monit
-
-
-### Old syntax (for systems not using systemd, like Ubuntu 14.04 and others)
+### Old syntax (for systems not using systemd)
 
     service <service> <action>
     service mysql status
