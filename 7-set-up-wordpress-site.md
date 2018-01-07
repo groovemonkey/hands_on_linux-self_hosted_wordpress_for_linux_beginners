@@ -109,7 +109,7 @@ Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all oc
 
 ## Create php-fpm vhost pool config file
 
-Add the following content to a new php-fpm pool configuration file.
+Add the following content to a new php-fpm pool configuration file at /etc/php/7.0/fpm/pool.d/yoursitename.conf
 
 Replace all occurrences of "yoursitename" in the configuration file content below with your truncated domain name, and all occurrences of "yourusername" with the name of the system user you've created for this website.
 
