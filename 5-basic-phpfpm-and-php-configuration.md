@@ -4,7 +4,7 @@
 
 ## Install the PHP extensions we need for WordPress
 
-    apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring php-xml
+    apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring
 
 Now ensure that the directory for php-fpm sockets exists
 
