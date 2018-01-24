@@ -4,6 +4,10 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 ## Changelog:
 
+#### Jan. 2018:
+
+Many updates (see git commits) over the past few months. Most notably, Ubuntu 15.04 is now deprecated and has been removed from the instructions.
+
 
 #### May 09, 2016:
 
