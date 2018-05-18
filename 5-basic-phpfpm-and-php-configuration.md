@@ -19,7 +19,7 @@ Now ensure that the directory for php-fpm sockets exists
 Add the following content:
 
     [global]
-    pid = /run/php-fpm.pid
+    pid = /run/php/php7.0-fpm.pid
     error_log = /var/log/php-fpm.log
     include=/etc/php/7.0/fpm/pool.d/*.conf
 
