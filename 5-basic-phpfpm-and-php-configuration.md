@@ -33,6 +33,7 @@ Create a *new* default pool configuration at /etc/php/7.0/fpm/pool.d/www.conf wi
 
     # nano /etc/php/7.0/fpm/pool.d/www.conf
 
+
     [default]
     security.limit_extensions = .php
     listen = /var/run/php/yourserverhostname.sock
