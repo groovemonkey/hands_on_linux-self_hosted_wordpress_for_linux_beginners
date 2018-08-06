@@ -4,7 +4,12 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 ## Changelog:
 
-#### Jan. 2018:
+#### July 2018:
+
+MySQL syntax fixes, some formatting updates to make things easier to understand.
+
+
+#### January 2018:
 
 Many updates (see git commits) over the past few months. Most notably, Ubuntu 15.04 is now deprecated and has been removed from the instructions.
 
