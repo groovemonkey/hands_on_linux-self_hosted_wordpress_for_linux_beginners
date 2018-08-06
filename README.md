@@ -6,6 +6,11 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 #### July 2018:
 
+Update for php-fpm7.2 in Ubuntu 18.04. A plague on the Ubuntu package maintainers' houses!
+
+
+#### July 2018:
+
 MySQL syntax fixes, some formatting updates to make things easier to understand.
 
 
