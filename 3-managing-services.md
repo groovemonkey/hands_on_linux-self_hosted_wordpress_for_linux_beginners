@@ -3,7 +3,12 @@
 
 ## Start your services (and enable them at boot)
 
-#### On Ubuntu 16.04 and later
+#### On Ubuntu 18.04
+
+    systemctl start nginx php7.2-fpm monit
+    systemctl enable mysql nginx php7.2-fpm monit
+
+#### On Ubuntu 16.04
 
     systemctl start nginx php7.0-fpm monit
     systemctl enable mysql nginx php7.0-fpm monit
