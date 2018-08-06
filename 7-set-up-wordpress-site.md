@@ -109,7 +109,9 @@ Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all oc
 
 ## Create php-fpm vhost pool config file
 
-Add the following content to a new php-fpm pool configuration file at /etc/php/7.0/fpm/pool.d/yoursitename.conf
+Add the following content to a new php-fpm pool configuration file at /etc/php/7.2/fpm/pool.d/yoursitename.conf
+
+*Note* - On Ubuntu 16.04, this is at /etc/php/7.0/fpm/pool.d/yoursitename.conf (different php-fpm version)
 
 Replace all occurrences of "yoursitename" in the configuration file content below with your truncated domain name, and all occurrences of "yourusername" with the name of the system user you've created for this website.
 
@@ -202,7 +204,8 @@ Now it's time to actually download and install the WordPress application.
 
 ## Restart your services
 
-    systemctl restart php7.0-fpm nginx
+    systemctl restart php7.2-fpm nginx # Ubuntu 18.04
+    systemctl restart php7.0-fpm nginx # Ubuntu 16.04
 
 
 ## ONCE YOU HAVE RUN THE WORDPRESS INSTALLER...
