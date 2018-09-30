@@ -25,7 +25,7 @@ Content:
           if failed port 3306 protocol mysql then alert
 
     # Check php-fpm
-    check process phpfpm with pidfile /var/run/php-fpm.pid
+    check process phpfpm with pidfile /run/php/php7.0-fpm.pid
           if cpu > 50% for 2 cycles then alert
           # if total cpu > 60% for 5 cycles then restart
           if memory > 300 MB then alert
