@@ -30,28 +30,6 @@ Add the following content:
 Remove the original (default) pool:
 
     rm /etc/php/7.2/fpm/pool.d/www.conf
-    
-
-
-Create a *new* default pool configuration at /etc/php/7.2/fpm/pool.d/www.conf with the following content:
-
-    # nano /etc/php/7.2/fpm/pool.d/www.conf
-
-
-    [default]
-    security.limit_extensions = .php
-    listen = /var/run/php/yourserverhostname.sock
-    listen.owner = www-data
-    listen.group = www-data
-    listen.mode = 0660
-    user = www-data
-    group = www-data
-    pm = dynamic
-    pm.max_children = 75
-    pm.start_servers = 8
-    pm.min_spare_servers = 5
-    pm.max_spare_servers = 20
-    pm.max_requests = 500
 
 
 ## Copy php.ini
