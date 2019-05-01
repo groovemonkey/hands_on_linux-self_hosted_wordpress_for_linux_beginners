@@ -4,6 +4,12 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 ## Changelog:
 
+#### May 2019:
+Reverting a change I made because it was over-optimizing for the end result (no www.conf 'default' php-fpm pool file). Now, no matter *where* in the course you are, you'll have a working php-fpm config and can safely restart/run the service -- even if you're not yet using it to run a PHP webapp.
+
+#### January 2019:
+Some fiddling with the php-fpm setup.
+
 #### August 2018:
 
 Update for php-fpm7.2 in Ubuntu 18.04. A plague on the Ubuntu package maintainers' houses!
