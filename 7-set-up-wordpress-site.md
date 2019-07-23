@@ -156,7 +156,7 @@ Replace 'chooseapassword' with a strong password. Unfortunately MySQL hates secu
 
     # Log into mysql
     CREATE DATABASE yoursite;
-    CREATE USER yoursite@localhost IDENTIFIED BY 'chooseapassword';
+    CREATE USER 'yoursite'@'localhost' IDENTIFIED BY 'chooseapassword';
     GRANT ALL PRIVILEGES ON yoursite.* TO yoursite@localhost;
     FLUSH PRIVILEGES;
 
