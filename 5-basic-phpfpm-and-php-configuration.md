@@ -11,10 +11,6 @@ Now ensure that the directory for php-fpm sockets exists
     mkdir /var/run/php-fpm
 
 
-## IMPORTANT NOTE IF YOU'RE USING UBUNTU 16.04:
-
-Replace all occurrences of '7.2' (the old php-fpm version number) below with '7.0'.
-
 ## Create the PHP and php-fpm configuration files (and back up the originals)
 
     mv /etc/php/7.2/fpm/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf.ORIG
@@ -242,6 +238,5 @@ Paste in the content below:
 
 ... but if you were, you'd restart php-fpm right now, with:
 
-    systemctl restart php7.2-fpm # Ubuntu 18.04
-    systemctl restart php7.0-fpm # Ubuntu 16.04
+    systemctl restart php7.2-fpm
 
