@@ -4,6 +4,12 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 ## Changelog:
 
+#### July 2019:
+- overhaul the final, re-usable 'site setup' instructions: remove the confusion around separate username and site name; many beginners found this level of customization confusing.
+- improve mysql password instructions
+- add sudo in places where beginners forgot it
+- remove 16.04 instructions
+
 #### May 2019:
 Reverting a change I made because it was over-optimizing for the end result (no www.conf 'default' php-fpm pool file). Now, no matter *where* in the course you are, you'll have a working php-fpm config and can safely restart/run the service -- even if you're not yet using it to run a PHP webapp.
 
