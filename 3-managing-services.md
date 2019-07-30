@@ -4,18 +4,15 @@ If you're logged in as the root user (or you've switched to the root user with `
 
 ## Start your services (and enable them at boot)
 
-#### On Ubuntu 18.04
-
-    sudo systemctl start nginx php7.2-fpm monit
-    sudo systemctl enable mysql nginx php7.2-fpm monit
-
-#### On Ubuntu 16.04
-
-    sudo systemctl start nginx php7.0-fpm monit
-    sudo systemctl enable mysql nginx php7.0-fpm monit
+```
+sudo systemctl start nginx php7.2-fpm monit
+sudo systemctl enable mysql nginx php7.2-fpm monit
+```
 
 ### Old syntax (for systems not using systemd)
 
-    sudo service <service> <action>
-    sudo service mysql status
-    sudo service nginx enable
+```
+sudo service <service> <action>
+sudo service mysql status
+sudo service nginx enable
+```
