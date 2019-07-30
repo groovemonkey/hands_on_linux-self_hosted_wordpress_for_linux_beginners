@@ -1,6 +1,6 @@
 # Basic php-fpm and PHP configuration
 
-
+Execute all of the following commands as root (`sudo -i`).
 
 ## Install the PHP extensions we need for WordPress
 
@@ -58,9 +58,8 @@ Create a *new* default pool configuration at /etc/php/7.2/fpm/pool.d/www.conf wi
 
 Rename the original file here and then create a new one:
 
-    cd /etc/php/7.2/fpm/
-    mv php.ini php.ini.ORIG
-    nano php.ini
+    mv /etc/php/7.2/fpm/php.ini /etc/php/7.2/fpm/php.ini.ORIG
+    nano /etc/php/7.2/fpm/php.ini
 
 Paste in the content below:
 
