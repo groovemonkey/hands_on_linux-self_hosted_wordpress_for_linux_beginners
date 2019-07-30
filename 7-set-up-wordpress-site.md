@@ -11,7 +11,7 @@ Replace all instances of 'tutorialinux' with the system username that you'll use
 
 ## Create nginx vhost config file
 
-Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all occurrences of '{{ domain_name }}' with your actual domain name for this site:
+Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all occurrences of 'tutorialinux' in this file with your IP address or domain name (if you have one):
 
     # nano /etc/nginx/conf.d/tutorialinux.conf
 
@@ -208,6 +208,27 @@ Now it's time to actually download and install the WordPress application.
 
     systemctl restart php7.2-fpm
     systemctl restart nginx
+
+
+## Open the WordPress Installer in your Browser
+Use your browser to navigate to the wordpress install page at http://example.com/wp-admin/setup-config.php (replace example.com with your chosen domain name).
+
+If you don't have a domain name yet (or it's not set up with an A record to point at your server's IP address), then use this trick to 'fake' it on your local machine.
+
+Make these changes on the local Linux machine you're using as a 'base' to go through this course, **not* on your remote web server that's running the WordPress site**:
+
+```
+nano /etc/hosts
+```
+Add a line like the following, with the IP and hostname replaced by your WordPress server's IP address and your domain name, respectively:
+```
+81.7.14.132    tutorialinux.com
+81.7.14.132    www.tutorialinux.com
+```
+
+This will trick applications (only on the local machine) to use this mapping, INSTEAD of the public DNS system, to resolve your hostname.
+
+It's a great way of testing things locally, before modifying DNS records at your domain registrar.
 
 
 ## ONCE YOU HAVE RUN THE WORDPRESS INSTALLER...
