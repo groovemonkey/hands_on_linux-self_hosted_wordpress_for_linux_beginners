@@ -1,28 +1,28 @@
 # Set up a WordPress Site
 
-Replace all instances of 'yourusername' with the system username that you'll use for this site, and all instances of 'yoursitename' with the same. It makes sense to use a truncated version of your domain for both of these, e.g. for 'tutorialinux.com' I would use 'tutorialinux'.
+Replace all instances of 'tutorialinux' with the system username that you'll use for this site. It makes sense to use a truncated version of your domain for this, e.g. for 'tutorialinux.com' I would use 'tutorialinux'.
 
 
 ## Create a system user for this site
 
-    adduser yourusername # (go through add-user wizard, or use the 'useradd' command to do this noninteractively)
-    mkdir -p /home/yourusername/logs
+    adduser tutorialinux # (go through add-user wizard, or use the 'useradd' command to do this noninteractively)
+    mkdir -p /home/tutorialinux/logs
 
 
 ## Create nginx vhost config file
 
-Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all occurrences of '{{ domain_name }}' with your actual domain name for this site:
+Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all occurrences of '{{ domain_name }}' with your actual domain name for this site:
 
-    # nano /etc/nginx/conf.d/yoursitename.conf
+    # nano /etc/nginx/conf.d/tutorialinux.conf
 
     server {
         listen       80;
-        server_name  www.{{ domain_name }};
+        server_name  www.tutorialinux.com;
 
         client_max_body_size 20m;
 
         index index.php index.html index.htm;
-        root   /home/yourusername/public_html;
+        root   /home/tutorialinux/public_html;
 
         location / {
             try_files $uri $uri/ /index.php?q=$uri&$args;
@@ -69,7 +69,7 @@ Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all oc
 
 
                 # General FastCGI handling
-                fastcgi_pass unix:/var/run/php/yoursitename.sock;
+                fastcgi_pass unix:/var/run/php/tutorialinux.sock;
                 fastcgi_pass_header Set-Cookie;
                 fastcgi_pass_header Cookie;
                 fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
@@ -96,8 +96,8 @@ Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all oc
 
     server {
         listen       80;
-        server_name  {{ domain_name }};
-        rewrite ^/(.*)$ http://www.{{ domain_name }}/$1 permanent;
+        server_name  tutorialinux.com;
+        rewrite ^/(.*)$ http://www.tutorialinux.com/$1 permanent;
     }
 
 
@@ -109,19 +109,21 @@ Add the following content to /etc/nginx/conf.d/yoursitename.conf. Replace all oc
 
 ## Create php-fpm vhost pool config file
 
-Add the following content to a new php-fpm pool configuration file at /etc/php/7.2/fpm/pool.d/yoursitename.conf
+Add the following content to a new php-fpm pool configuration file:
 
-*Note* - On Ubuntu 16.04, this is at /etc/php/7.0/fpm/pool.d/yoursitename.conf (different php-fpm version)
+```
+nano /etc/php/7.2/fpm/pool.d/tutorialinux.conf
+```
 
-Replace all occurrences of "yoursitename" in the configuration file content below with your truncated domain name, and all occurrences of "yourusername" with the name of the system user you've created for this website.
+Replace all occurrences of "tutorialinux" in the configuration file content below with your site name.
 
 
-    [yoursitename]
-    listen = /var/run/php/yoursitename.sock
-    listen.owner = yourusername
+    [tutorialinux]
+    listen = /var/run/php/tutorialinux.sock
+    listen.owner = tutorialinux
     listen.group = www-data
     listen.mode = 0660
-    user = yourusername
+    user = tutorialinux
     group = www-data
     pm = dynamic
     pm.max_children = 75
@@ -131,14 +133,14 @@ Replace all occurrences of "yoursitename" in the configuration file content belo
     pm.max_requests = 500
 
     php_admin_value[upload_max_filesize] = 25M
-    php_admin_value[error_log] = /home/yourusername/logs/phpfpm_error.log
-    php_admin_value[open_basedir] = /home/yourusername:/tmp
+    php_admin_value[error_log] = /home/tutorialinux/logs/phpfpm_error.log
+    php_admin_value[open_basedir] = /home/tutorialinux:/tmp
 
 
 
 ## Create the php-fpm logfile
 
-    touch /home/yourusername/logs/phpfpm_error.log
+    touch /home/tutorialinux/logs/phpfpm_error.log
 
 
 ## Create Site Database + DB User
@@ -173,7 +175,7 @@ Now it's time to actually download and install the WordPress application.
 
 ### Download WordPress
 
-    su - yourusername
+    su - tutorialinux
     cd
     wget https://wordpress.org/latest.tar.gz
 
@@ -196,16 +198,16 @@ Now it's time to actually download and install the WordPress application.
 
 ### Set proper file permissions on your site files
 
-    cd /home/yourusername/public_html
-    chown -R yourusername:www-data .
+    cd /home/tutorialinux/public_html
+    chown -R tutorialinux:www-data .
     find . -type d -exec chmod 755 {} \;
     find . -type f -exec chmod 644 {} \;
 
 
 ## Restart your services
 
-    systemctl restart php7.2-fpm nginx # Ubuntu 18.04
-    systemctl restart php7.0-fpm nginx # Ubuntu 16.04
+    systemctl restart php7.2-fpm
+    systemctl restart nginx
 
 
 ## ONCE YOU HAVE RUN THE WORDPRESS INSTALLER...
@@ -214,6 +216,4 @@ You'll be able to run the installer by navigating to your server IP address in a
 
 ### Secure the wp-config.php file so other users can’t read DB credentials
 
-    chmod 640 /home/yourusername/public_html/wp-config.php
-
-
+    chmod 640 /home/tutorialinux/public_html/wp-config.php
