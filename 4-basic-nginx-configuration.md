@@ -65,7 +65,14 @@ Paste (Ctrl-Shift-v in Gnome terminal, right-click in PuTTy) the following data 
 Test the nginx configuration (or attempt to reload nginx) to make sure you don't have any errors:
 
 Test the configuration without restarting/reloading the nginx service:
-```nginx -t```
+
+```
+nginx -t
+```
+
 
 Or reload nginx, if it's running and you want to apply the new configuration right away:
-```systemctl reload nginx```
+
+```
+systemctl reload nginx
+```
