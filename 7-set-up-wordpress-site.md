@@ -145,26 +145,27 @@ Replace all occurrences of "tutorialinux" in the configuration file content belo
 
 ## Create Site Database + DB User
 
-Log into your mysql database with the root account, using the password you created earlier (during the mysql_secure_installation script run):
+First, create a new mysql password for your wordpress site. You can do this in any Linux shell, local or remote:
+
+    # Create password
+    echo -n @ && cat /dev/urandom | env LC_CTYPE=C tr -dc [:alnum:] | head -c 15 && echo
+
+Now log into your mysql database with the root account, using the password you created and saved earlier (during the mysql_secure_installation script run):
 
     mysql -u root -p
 
 This will prompt you for the MySQL root user’s password, and then give you a database shell. This shell will let you enter the following commands to create the WordPress database and user, along with appropriate permissions. Swap out ‘yoursite’ for your truncated domain name. This name can't contain any punctuation or special characters.
 
-Replace 'chooseapassword' with a strong password. Unfortunately MySQL hates security and will complain if the password is longer than 16 characters, so I suggest using the same command that we used to create the root password:
-
-    # Create password
-    echo -n @ && cat /dev/urandom | env LC_CTYPE=C tr -dc [:alnum:] | head -c 15 && echo
+Replace 'chooseapassword' with the strong password that you just created with the shell command above.
 
     # Log into mysql
-    CREATE DATABASE yoursite;
-    CREATE USER 'yoursite'@'localhost' IDENTIFIED BY 'chooseapassword';
-    GRANT ALL PRIVILEGES ON yoursite.* TO yoursite@localhost;
+    CREATE DATABASE tutorialinux;
+    CREATE USER 'tutorialinux'@'localhost' IDENTIFIED BY 'chooseapassword';
+    GRANT ALL PRIVILEGES ON tutorialinux.* TO tutorialinux@localhost;
     FLUSH PRIVILEGES;
 
 
 Great; you’re done! Hit *ctrl-d* to exit the MySQL shell.
-
 
 
 
@@ -220,7 +221,7 @@ Make these changes on the local Linux machine you're using as a 'base' to go thr
 ```
 nano /etc/hosts
 ```
-Add a line like the following, with the IP and hostname replaced by your WordPress server's IP address and your domain name, respectively:
+Add two lines like the following, with the IP and hostnames replaced by your WordPress server's IP address and your domain name, respectively:
 ```
 81.7.14.132    tutorialinux.com
 81.7.14.132    www.tutorialinux.com
@@ -228,7 +229,7 @@ Add a line like the following, with the IP and hostname replaced by your WordPre
 
 This will trick applications (only on the local machine) to use this mapping, INSTEAD of the public DNS system, to resolve your hostname.
 
-It's a great way of testing things locally, before modifying DNS records at your domain registrar.
+It's a great way of testing things locally, before modifying DNS records at your domain registrar (e.g. namecheap).
 
 
 ## ONCE YOU HAVE RUN THE WORDPRESS INSTALLER...

@@ -4,6 +4,10 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 ## Changelog:
 
+#### December 2019:
+- improve mysql instructions during the actual website setup
+- use tutorialinux as the example site/user/database throughout the entire process
+
 #### July 2019:
 - overhaul the final, re-usable 'site setup' instructions: remove the confusion around separate username and site name; many beginners found this level of customization confusing.
 - improve mysql password instructions
