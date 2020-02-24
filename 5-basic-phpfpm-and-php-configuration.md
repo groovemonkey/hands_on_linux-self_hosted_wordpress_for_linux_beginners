@@ -31,7 +31,7 @@ Remove the original (default) pool:
 
 Create a *new* default pool configuration at /etc/php/7.2/fpm/pool.d/www.conf with the following content:
 
-    # nano /etc/php/7.2/fpm/pool.d/www.conf
+    ; nano /etc/php/7.2/fpm/pool.d/www.conf
 
 
     [default]
