@@ -4,6 +4,14 @@ Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress f
 
 ## Changelog:
 
+#### July 2020
+- updated instructions for Ubuntu 20.04
+- nginx can now be installed from Ubuntu's package repositories, hooray!
+- removed non-system instructions (it's been long enough now; we're not going back)
+- cleaned up nginx docs
+- cleaned up php-fpm docs, bumped version number, added explanation for why we keep the original www.conf pool file
+- clean up php-fpm www.conf file after we create a site config file
+
 #### December 2019:
 - improve mysql instructions during the actual website setup
 - use tutorialinux as the example site/user/database throughout the entire process
@@ -21,20 +29,13 @@ Reverting a change I made because it was over-optimizing for the end result (no 
 Some fiddling with the php-fpm setup.
 
 #### August 2018:
-
 Update for php-fpm7.2 in Ubuntu 18.04. A plague on the Ubuntu package maintainers' houses!
 
-
 #### July 2018:
-
 MySQL syntax fixes, some formatting updates to make things easier to understand.
 
-
 #### January 2018:
-
 Many updates (see git commits) over the past few months. Most notably, Ubuntu 15.04 is now deprecated and has been removed from the instructions.
 
-
 #### May 09, 2016:
-
 Update instructions to work with Ubuntu 16.04, which introduces new major versions of the core application packages we use (PHP, mysql), along with several annoying bugs that we need to steer clear of.

@@ -112,7 +112,7 @@ Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all oc
 Add the following content to a new php-fpm pool configuration file:
 
 ```
-nano /etc/php/7.2/fpm/pool.d/tutorialinux.conf
+nano /etc/php/7.4/fpm/pool.d/tutorialinux.conf
 ```
 
 Replace all occurrences of "tutorialinux" in the configuration file content below with your site name.
@@ -137,6 +137,11 @@ Replace all occurrences of "tutorialinux" in the configuration file content belo
     php_admin_value[open_basedir] = /home/tutorialinux:/tmp
 
 
+## Clean up the original php-fpm pool config file
+We've kept this around just to prevent errors while restarting php-fpm. Since we just created a new php-fpm pool config file, let's clean the old one up:
+
+    rm /etc/php/7.4/fpm/pool.d/www.conf
+
 
 ## Create the php-fpm logfile
 
@@ -156,7 +161,7 @@ Now log into your mysql database with the root account, using the password you c
 
 This will prompt you for the MySQL root user’s password, and then give you a database shell. This shell will let you enter the following commands to create the WordPress database and user, along with appropriate permissions. Swap out ‘yoursite’ for your truncated domain name. This name can't contain any punctuation or special characters.
 
-Replace 'chooseapassword' with the strong password that you just created with the shell command above.
+Replace `chooseapassword` with the strong password that you just created with the shell command above, and `tutorialinux` with your site name.
 
     # Log into mysql
     CREATE DATABASE tutorialinux;
@@ -175,6 +180,8 @@ Now it's time to actually download and install the WordPress application.
 
 
 ### Download WordPress
+
+Become your site user (named tutorialinux in my case) and download the WordPress application:
 
     su - tutorialinux
     cd
@@ -199,6 +206,8 @@ Now it's time to actually download and install the WordPress application.
 
 ### Set proper file permissions on your site files
 
+Make sure you're in your user's home directory -- I'm still using the `tutorialinux` user here for illustration:
+
     cd /home/tutorialinux/public_html
     chown -R tutorialinux:www-data .
     find . -type d -exec chmod 755 {} \;
@@ -207,7 +216,7 @@ Now it's time to actually download and install the WordPress application.
 
 ## Restart your services
 
-    systemctl restart php7.2-fpm
+    systemctl restart php7.4-fpm
     systemctl restart nginx
 
 
