@@ -99,7 +99,6 @@ Paste in the content below:
     doc_root =
     user_dir =
     enable_dl = Off
-    cgi.fix_pathinfo=0
     file_uploads = On
     upload_max_filesize = 25M
     max_file_uploads = 20
