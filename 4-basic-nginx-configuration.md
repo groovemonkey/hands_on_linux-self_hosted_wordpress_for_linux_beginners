@@ -70,18 +70,10 @@ Test the configuration without restarting/reloading the nginx service:
 nginx -t
 ```
 
-
 Or reload nginx, if it's running and you want to apply the new configuration right away:
 
 ```
 systemctl reload nginx
 ```
-
-It's normal, and harmless, to see this warning:
-
-```
-nginx: [warn] duplicate MIME type "text/html" in /etc/nginx/nginx.conf:34
-```
-Resolving it is left as an exercise to the student :-).
 
 *Important*: When testing an nginx config, `[warn]`s are okay -- `[err]` means there's a problem that you need to troubleshoot and fix, and will prevent the nginx service from starting successfully.

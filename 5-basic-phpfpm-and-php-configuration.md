@@ -8,35 +8,34 @@ Execute all of the following commands as root (`sudo -i`).
 
 Now ensure that the directory for php-fpm sockets exists
 
-    mkdir /var/run/php-fpm
+    mkdir /run/php-fpm
 
 
 ## Create the PHP and php-fpm configuration files (and back up the originals)
 
-    mv /etc/php/7.2/fpm/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf.ORIG
-    nano /etc/php/7.2/fpm/php-fpm.conf
+    mv /etc/php/7.4/fpm/php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf.ORIG
+    nano /etc/php/7.4/fpm/php-fpm.conf
 
 Add the following content:
 
     [global]
-    pid = /run/php/php7.2-fpm.pid
+    pid = /run/php/php7.4-fpm.pid
     error_log = /var/log/php-fpm.log
-    include=/etc/php/7.2/fpm/pool.d/*.conf
+    include=/etc/php/7.4/fpm/pool.d/*.conf
 
 Remove the original (default) pool:
 
-    rm /etc/php/7.2/fpm/pool.d/www.conf
+    rm /etc/php/7.4/fpm/pool.d/www.conf
 
 
 
-Create a *new* default pool configuration at /etc/php/7.2/fpm/pool.d/www.conf with the following content:
+Create a *new* default pool configuration at /etc/php/7.4/fpm/pool.d/www.conf with the following content:
 
-    # nano /etc/php/7.2/fpm/pool.d/www.conf
-
+`nano /etc/php/7.4/fpm/pool.d/www.conf`
 
     [default]
     security.limit_extensions = .php
-    listen = /var/run/php/yourserverhostname.sock
+    listen = /run/php/yourserverhostname.sock
     listen.owner = www-data
     listen.group = www-data
     listen.mode = 0660
@@ -49,13 +48,15 @@ Create a *new* default pool configuration at /etc/php/7.2/fpm/pool.d/www.conf wi
     pm.max_spare_servers = 20
     pm.max_requests = 500
 
+This new default pool won't be used, but I'm creating it here to prevent new students from getting confused when they try to restart php-fpm at this point in the course. We'll remove this file again later -- you don't REALLY need it.
+
 
 ## Copy php.ini
 
 Rename the original file here and then create a new one:
 
-    mv /etc/php/7.2/fpm/php.ini /etc/php/7.2/fpm/php.ini.ORIG
-    nano /etc/php/7.2/fpm/php.ini
+    mv /etc/php/7.4/fpm/php.ini /etc/php/7.4/fpm/php.ini.ORIG
+    nano /etc/php/7.4/fpm/php.ini
 
 Paste in the content below:
 
@@ -98,7 +99,6 @@ Paste in the content below:
     doc_root =
     user_dir =
     enable_dl = Off
-    cgi.fix_pathinfo=0
     file_uploads = On
     upload_max_filesize = 25M
     max_file_uploads = 20
@@ -238,5 +238,5 @@ Paste in the content below:
 
 ... but if you were, you'd restart php-fpm right now, with:
 
-    systemctl restart php7.2-fpm
+    systemctl restart php7.4-fpm
 
