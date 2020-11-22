@@ -4,10 +4,10 @@ On your Webserver (as root)
 
 ## Install software
 
-    apt-get update
-    apt-get upgrade
+    apt update
+    apt upgrade
 
 Make sure to install the mysql-server package FIRST (before installing the other packages):
     
-    apt-get install mysql-server
-    apt-get install nginx php-mysql php-fpm monit
+    apt install mysql-server
+    apt install nginx php-mysql php-fpm monit
