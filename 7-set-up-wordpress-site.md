@@ -7,6 +7,7 @@ Replace all instances of 'tutorialinux' with the system username that you'll use
 
     adduser tutorialinux # (go through add-user wizard, or use the 'useradd' command to do this noninteractively)
     mkdir -p /home/tutorialinux/logs
+    chown tutorialinux:www-data /home/tutorialinux/logs/
 
 
 ## Create nginx vhost config file
@@ -145,7 +146,7 @@ We've kept this around just to prevent errors while restarting php-fpm. Since we
 
 ## Create the php-fpm logfile
 
-    touch /home/tutorialinux/logs/phpfpm_error.log
+    sudo -u tutorialinux touch /home/tutorialinux/logs/phpfpm_error.log
 
 
 ## Create Site Database + DB User
@@ -206,7 +207,7 @@ Become your site user (named tutorialinux in my case) and download the WordPress
 
 ### Set proper file permissions on your site files
 
-Make sure you're in your user's home directory -- I'm still using the `tutorialinux` user here for illustration:
+Make sure you're in your user's home/public_html directory -- I'm still using the `tutorialinux` user here for illustration:
 
     cd /home/tutorialinux/public_html
     chown -R tutorialinux:www-data .
@@ -218,6 +219,10 @@ Make sure you're in your user's home directory -- I'm still using the `tutoriali
 
     systemctl restart php7.4-fpm
     systemctl restart nginx
+
+
+## Optional: Set up DNS
+Log into your registrar's dashboard (wherever you purchased your domain name, usually) and point your domain at the WordPress server's IP.
 
 
 ## Open the WordPress Installer in your Browser
