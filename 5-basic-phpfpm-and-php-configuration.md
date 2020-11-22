@@ -4,7 +4,7 @@ Execute all of the following commands as root (`sudo -i`).
 
 ## Install the PHP extensions we need for WordPress
 
-    apt-get install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring
+    apt install php-json php-xmlrpc php-curl php-gd php-xml php-mbstring
 
 Now ensure that the directory for php-fpm sockets exists
 
