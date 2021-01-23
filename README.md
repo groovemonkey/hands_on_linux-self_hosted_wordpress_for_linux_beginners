@@ -2,6 +2,8 @@
 
 Code and configuration snippets for the [Hands-on Linux: Self-Hosted WordPress for Linux Beginners Course](https://www.udemy.com/hands-on-linux-self-hosted-wordpress-for-linux-beginners/) course. Just navigate to whichever section you need help with.
 
+To sign up for your own DigitalOcean account where you can provision a server to host your website and follow along with the course, use [this link](https://m.do.co/c/0380a1db56a6) (that link gives you a $100 account credit over 60 days, and I make $25 if you like DO and keep using them).
+
 ## Changelog:
 
 #### July 2020
