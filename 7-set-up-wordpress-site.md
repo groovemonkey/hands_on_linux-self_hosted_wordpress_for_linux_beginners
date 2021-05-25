@@ -4,10 +4,20 @@ Replace all instances of 'tutorialinux' with the system username that you'll use
 
 
 ## Create a system user for this site
+I'm using the username 'tutorialinux' in all of these examples, but you can change it to something that reflects your website's name
 
-    adduser tutorialinux # (go through add-user wizard, or use the 'useradd' command to do this noninteractively)
-    mkdir -p /home/tutorialinux/logs
-    chown tutorialinux:www-data /home/tutorialinux/logs/
+    export WEBSITEUSER=tutorialinux
+    
+    adduser $WEBSITEUSER # (go through add-user wizard, or use the 'useradd' command to do this noninteractively)
+    mkdir -p /home/$WEBSITEUSER/logs
+    chown $WEBSITEUSER:www-data /home/$WEBSITEUSER/logs/
+
+
+### Ensure permissions are set properly on the home directory
+This will make sure your nginx AND php processes can read all website-related files in your website-user's home directory:
+
+    chown $WEBSITEUSER:www-data /home/$WEBSITEUSER
+    chmod 775 /home/$WEBSITEUSER
 
 
 ## Create nginx vhost config file
