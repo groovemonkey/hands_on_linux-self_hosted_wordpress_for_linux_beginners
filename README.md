@@ -6,6 +6,11 @@ To sign up for your own DigitalOcean account where you can provision a server to
 
 ## Changelog:
 
+#### May 2022
+- Full course update for Ubuntu 22.04
+- user creation is now more geared towards automation
+- Small formatting and clarity improvements
+
 #### July 2020
 - updated instructions for Ubuntu 20.04
 - nginx can now be installed from Ubuntu's package repositories, hooray!
