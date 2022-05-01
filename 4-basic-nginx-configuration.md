@@ -3,16 +3,15 @@
 
 ## Rename original configuration file
 
-    cd /etc/nginx/
-    mv nginx.conf nginx.conf.ORIG
+    mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.ORIG
 
 
 ## Create a new nginx configuration file using nano, with:
-    nano nginx.conf
+    nano /etc/nginx/nginx.conf
 
 Paste (Ctrl-Shift-v in Gnome terminal, right-click in PuTTy) the following data into the file:
 
-
+```
     user  www-data;
     worker_processes  auto;
 
@@ -53,7 +52,7 @@ Paste (Ctrl-Shift-v in Gnome terminal, right-click in PuTTy) the following data 
         include /etc/nginx/conf.d/*.conf;
         include /etc/nginx/sites-enabled/*;
     }
-
+```
 
 
 ## Now create the cache directory:

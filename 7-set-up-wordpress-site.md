@@ -8,15 +8,14 @@ I'm using the username 'tutorialinux' in all of these examples, but you can chan
 
     export WEBSITEUSER=tutorialinux
     
-    adduser $WEBSITEUSER # (go through add-user wizard, or use the 'useradd' command to do this noninteractively)
+    useradd -s /bin/bash -m -d /home/$WEBSITEUSER $WEBSITEUSER
     mkdir -p /home/$WEBSITEUSER/logs
-    chown $WEBSITEUSER:www-data /home/$WEBSITEUSER/logs/
 
 
 ### Ensure permissions are set properly on the home directory
 This will make sure your nginx AND php processes can read all website-related files in your website-user's home directory:
 
-    chown $WEBSITEUSER:www-data /home/$WEBSITEUSER
+    chown -R $WEBSITEUSER:www-data /home/$WEBSITEUSER
     chmod 775 /home/$WEBSITEUSER
 
 
@@ -26,91 +25,92 @@ Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all oc
 
     # nano /etc/nginx/conf.d/tutorialinux.conf
 
-    server {
-        listen       80;
-        server_name  www.tutorialinux.com;
+```
+server {
+    listen       80;
+    server_name  www.tutorialinux.com;
 
-        client_max_body_size 20m;
+    client_max_body_size 20m;
 
-        index index.php index.html index.htm;
-        root   /home/tutorialinux/public_html;
+    index index.php index.html index.htm;
+    root   /home/tutorialinux/public_html;
 
-        location / {
-            try_files $uri $uri/ /index.php?q=$uri&$args;
-        }
-
-        # pass the PHP scripts to FastCGI server
-        location ~ \.php$ {
-                # Basic
-                try_files $uri =404;
-                fastcgi_index index.php;
-
-                # Create a no cache flag
-                set $no_cache "";
-
-                # Don't ever cache POSTs
-                if ($request_method = POST) {
-                  set $no_cache 1;
-                }
-
-                # Admin stuff should not be cached
-                if ($request_uri ~* "/(wp-admin/|wp-login.php)") {
-                  set $no_cache 1;
-                }
-
-                # WooCommerce stuff should not be cached
-                if ($request_uri ~* "/store.*|/cart.*|/my-account.*|/checkout.*|/addons.*") {
-                  set $no_cache 1;
-                }
-
-                # If we are the admin, make sure nothing
-                # gets cached, so no weird stuff will happen
-                if ($http_cookie ~* "wordpress_logged_in_") {
-                  set $no_cache 1;
-                }
-
-                # Cache and cache bypass handling
-                fastcgi_no_cache $no_cache;
-                fastcgi_cache_bypass $no_cache;
-                fastcgi_cache microcache;
-                fastcgi_cache_key $scheme$request_method$server_name$request_uri$args;
-                fastcgi_cache_valid 200 60m;
-                fastcgi_cache_valid 404 10m;
-                fastcgi_cache_use_stale updating;
-
-
-                # General FastCGI handling
-                fastcgi_pass unix:/var/run/php/tutorialinux.sock;
-                fastcgi_pass_header Set-Cookie;
-                fastcgi_pass_header Cookie;
-                fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
-                fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_param SCRIPT_FILENAME $request_filename;
-                fastcgi_intercept_errors on;
-                include fastcgi_params;         
-        }
-
-        location ~* \.(js|css|png|jpg|jpeg|gif|ico|woff|ttf|svg|otf)$ {
-                expires 30d;
-                add_header Pragma public;
-                add_header Cache-Control "public";
-                access_log off;
-        }
-
-        # deny access to .htaccess files, if Apache's document root
-        # concurs with nginx's one
-        #
-        #location ~ /\.ht {
-        #    deny  all;
-        #}
+    location / {
+        try_files $uri $uri/ /index.php?q=$uri&$args;
     }
 
-    server {
-        listen       80;
-        server_name  tutorialinux.com;
-        rewrite ^/(.*)$ http://www.tutorialinux.com/$1 permanent;
+    # pass the PHP scripts to FastCGI server
+    location ~ \.php$ {
+            # Basic
+            try_files $uri =404;
+            fastcgi_index index.php;
+
+            # Create a no cache flag
+            set $no_cache "";
+
+            # Don't ever cache POSTs
+            if ($request_method = POST) {
+              set $no_cache 1;
+            }
+
+            # Admin stuff should not be cached
+            if ($request_uri ~* "/(wp-admin/|wp-login.php)") {
+              set $no_cache 1;
+            }
+
+            # WooCommerce stuff should not be cached
+            if ($request_uri ~* "/store.*|/cart.*|/my-account.*|/checkout.*|/addons.*") {
+              set $no_cache 1;
+            }
+
+            # If we are the admin, make sure nothing
+            # gets cached, so no weird stuff will happen
+            if ($http_cookie ~* "wordpress_logged_in_") {
+              set $no_cache 1;
+            }
+
+            # Cache and cache bypass handling
+            fastcgi_no_cache $no_cache;
+            fastcgi_cache_bypass $no_cache;
+            fastcgi_cache microcache;
+            fastcgi_cache_key $scheme$request_method$server_name$request_uri$args;
+            fastcgi_cache_valid 200 60m;
+            fastcgi_cache_valid 404 10m;
+            fastcgi_cache_use_stale updating;
+
+
+            # General FastCGI handling
+            fastcgi_pass unix:/var/run/php/tutorialinux.sock;
+            fastcgi_pass_header Set-Cookie;
+            fastcgi_pass_header Cookie;
+            fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_param SCRIPT_FILENAME $request_filename;
+            fastcgi_intercept_errors on;
+            include fastcgi_params;
     }
 
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|woff|ttf|svg|otf)$ {
+            expires 30d;
+            add_header Pragma public;
+            add_header Cache-Control "public";
+            access_log off;
+    }
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+
+server {
+    listen       80;
+    server_name  tutorialinux.com;
+    rewrite ^/(.*)$ http://www.tutorialinux.com/$1 permanent;
+}
+```
 
 
 ## Disable default nginx vhost (only the first time you set up a website)
@@ -123,35 +123,35 @@ Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all oc
 Add the following content to a new php-fpm pool configuration file:
 
 ```
-nano /etc/php/7.4/fpm/pool.d/tutorialinux.conf
+nano /etc/php/8.1/fpm/pool.d/tutorialinux.conf
 ```
 
 Replace all occurrences of "tutorialinux" in the configuration file content below with your site name.
 
+```
+[tutorialinux]
+listen = /var/run/php/tutorialinux.sock
+listen.owner = tutorialinux
+listen.group = www-data
+listen.mode = 0660
+user = tutorialinux
+group = www-data
+pm = dynamic
+pm.max_children = 75
+pm.start_servers = 8
+pm.min_spare_servers = 5
+pm.max_spare_servers = 20
+pm.max_requests = 500
 
-    [tutorialinux]
-    listen = /var/run/php/tutorialinux.sock
-    listen.owner = tutorialinux
-    listen.group = www-data
-    listen.mode = 0660
-    user = tutorialinux
-    group = www-data
-    pm = dynamic
-    pm.max_children = 75
-    pm.start_servers = 8
-    pm.min_spare_servers = 5
-    pm.max_spare_servers = 20
-    pm.max_requests = 500
-
-    php_admin_value[upload_max_filesize] = 25M
-    php_admin_value[error_log] = /home/tutorialinux/logs/phpfpm_error.log
-    php_admin_value[open_basedir] = /home/tutorialinux:/tmp
-
+php_admin_value[upload_max_filesize] = 25M
+php_admin_value[error_log] = /home/tutorialinux/logs/phpfpm_error.log
+php_admin_value[open_basedir] = /home/tutorialinux:/tmp
+```
 
 ## Clean up the original php-fpm pool config file
 We've kept this around just to prevent errors while restarting php-fpm. Since we just created a new php-fpm pool config file, let's clean the old one up:
 
-    rm /etc/php/7.4/fpm/pool.d/www.conf
+    rm /etc/php/8.1/fpm/pool.d/www.conf
 
 
 ## Create the php-fpm logfile
@@ -174,12 +174,13 @@ This will prompt you for the MySQL root user’s password, and then give you a d
 
 Replace `chooseapassword` with the strong password that you just created with the shell command above, and `tutorialinux` with your site name.
 
-    # Log into mysql
-    CREATE DATABASE tutorialinux;
-    CREATE USER 'tutorialinux'@'localhost' IDENTIFIED BY 'chooseapassword';
-    GRANT ALL PRIVILEGES ON tutorialinux.* TO tutorialinux@localhost;
-    FLUSH PRIVILEGES;
-
+```
+# Log into mysql
+CREATE DATABASE tutorialinux;
+CREATE USER 'tutorialinux'@'localhost' IDENTIFIED BY 'chooseapassword';
+GRANT ALL PRIVILEGES ON tutorialinux.* TO tutorialinux@localhost;
+FLUSH PRIVILEGES;
+```
 
 Great; you’re done! Hit *ctrl-d* to exit the MySQL shell.
 
@@ -217,17 +218,18 @@ Become your site user (named tutorialinux in my case) and download the WordPress
 
 ### Set proper file permissions on your site files
 
-Make sure you're in your user's home/public_html directory -- I'm still using the `tutorialinux` user here for illustration:
+Make sure you're in your user's home/public_html directory. I'm still using the WEBSITEUSER variable that we set earlier -- in my case it's set to `tutorialinux`:
 
-    cd /home/tutorialinux/public_html
-    chown -R tutorialinux:www-data .
-    find . -type d -exec chmod 755 {} \;
-    find . -type f -exec chmod 644 {} \;
-
+```
+cd /home/$WEBSITEUSER/public_html
+chown -R $WEBSITEUSER:www-data .
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+```
 
 ## Restart your services
 
-    systemctl restart php7.4-fpm
+    systemctl restart php8.1-fpm
     systemctl restart nginx
 
 
@@ -247,8 +249,8 @@ nano /etc/hosts
 ```
 Add two lines like the following, with the IP and hostnames replaced by your WordPress server's IP address and your domain name, respectively:
 ```
-81.7.14.132    tutorialinux.com
-81.7.14.132    www.tutorialinux.com
+1.2.3.4    tutorialinux.com
+1.2.3.4    www.tutorialinux.com
 ```
 
 This will trick applications (only on the local machine) to use this mapping, INSTEAD of the public DNS system, to resolve your hostname.
