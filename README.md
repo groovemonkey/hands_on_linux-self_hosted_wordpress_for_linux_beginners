@@ -7,6 +7,7 @@ To sign up for your own DigitalOcean account where you can provision a server to
 ## Changelog:
 
 #### May 2022
+- Packer Mini-Course Addition!
 - Full course update for Ubuntu 22.04
 - user creation is now more geared towards automation
 - Small formatting and clarity improvements
