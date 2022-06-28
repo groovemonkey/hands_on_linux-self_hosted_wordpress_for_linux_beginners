@@ -4,7 +4,7 @@ set -eu
 # From https://github.com/groovemonkey/hands_on_linux-self_hosted_wordpress_for_linux_beginners/blob/master/7-set-up-wordpress-site.md
 
 # Replace all instances of 'tutorialinux' with the system username that you'll use for this site. It makes sense to use a truncated version of your domain for this, e.g. for 'tutorialinux.com' I would use 'tutorialinux'.
-BASENAME=tutorialinux
+BASENAME=example
 PACKER_LOGFILE=/etc/packer-setup.log
 echo "PACKER SETUP SCRIPT: STARTING!" | sudo tee -a $PACKER_LOGFILE
 

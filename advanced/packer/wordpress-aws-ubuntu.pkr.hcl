@@ -7,8 +7,12 @@ packer {
   }
 }
 
+locals {
+    timestamp = regex_replace(timestamp(), "[- TZ:]", "")
+  }
+  
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "packer-wordpress-tutorialinux-aws"
+  ami_name      = "packer-wordpress-tutorialinux-aws-${local.timestamp}"
   instance_type = "t2.micro"
   region        = "us-west-2"
   source_ami_filter {
@@ -29,6 +33,7 @@ build {
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
+  
   provisioner "shell" {
     scripts = [
       # base install
@@ -54,8 +59,8 @@ build {
     # copying files in two steps because of packer/sudo limitations
     inline = [
       "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
-      "sudo mv ~/wordpress_nginx.conf /etc/nginx/conf.d/tutorialinux.conf",
-      "sudo mv ~/phppool.conf /etc/php/8.1/fpm/pool.d/tutorialinux.conf",
+      "sudo mv ~/wordpress_nginx.conf /etc/nginx/conf.d/example.conf",
+      "sudo mv ~/phppool.conf /etc/php/8.1/fpm/pool.d/example.conf",
     ]
   }
   provisioner "shell" {
