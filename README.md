@@ -6,6 +6,9 @@ To sign up for your own DigitalOcean account where you can provision a server to
 
 ## Changelog:
 
+#### December 2022
+- New and improved MySQL root password / secure_installation instructions.
+
 #### May 2022
 - Packer Mini-Course Addition!
 - Full course update for Ubuntu 22.04
