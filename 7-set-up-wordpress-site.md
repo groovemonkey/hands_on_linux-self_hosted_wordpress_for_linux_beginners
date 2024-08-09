@@ -4,6 +4,7 @@ Replace all instances of 'tutorialinux' with the system username that you'll use
 
 
 ## Create a system user for this site
+
 I'm using the username 'tutorialinux' in all of these examples, but you can change it to something that reflects your website's name
 
     export WEBSITEUSER=tutorialinux
@@ -23,7 +24,9 @@ This will make sure your nginx AND php processes can read all website-related fi
 
 Add the following content to /etc/nginx/conf.d/tutorialinux.conf. Replace all occurrences of 'tutorialinux' in this file with your IP address or domain name (if you have one):
 
-    # nano /etc/nginx/conf.d/tutorialinux.conf
+```bash
+nano /etc/nginx/conf.d/tutorialinux.conf
+```
 
 ```
 server {
@@ -115,15 +118,17 @@ server {
 
 ## Disable default nginx vhost (only the first time you set up a website)
 
-    rm /etc/nginx/sites-enabled/default
+```bash
+rm /etc/nginx/sites-enabled/default
+```
 
 
 ## Create php-fpm vhost pool config file
 
 Add the following content to a new php-fpm pool configuration file:
 
-```
-nano /etc/php/8.1/fpm/pool.d/tutorialinux.conf
+```bash
+nano /etc/php/8.3/fpm/pool.d/tutorialinux.conf
 ```
 
 Replace all occurrences of "tutorialinux" in the configuration file content below with your site name.
@@ -151,24 +156,33 @@ php_admin_value[open_basedir] = /home/tutorialinux:/tmp
 ## Clean up the original php-fpm pool config file
 We've kept this around just to prevent errors while restarting php-fpm. Since we just created a new php-fpm pool config file, let's clean the old one up:
 
-    rm /etc/php/8.1/fpm/pool.d/www.conf
+```bash
+rm /etc/php/8.3/fpm/pool.d/www.conf
+```
 
 
 ## Create the php-fpm logfile
 
-    sudo -u tutorialinux touch /home/tutorialinux/logs/phpfpm_error.log
+```bash
+sudo -u tutorialinux touch /home/tutorialinux/logs/phpfpm_error.log
+```
 
 
 ## Create Site Database + DB User
 
 First, create a new mysql password for your wordpress site. You can do this in any Linux shell, local or remote:
 
-    # Create password
-    echo -n @ && cat /dev/urandom | env LC_CTYPE=C tr -dc [:alnum:] | head -c 15 && echo
+```bash
+# Create password
+echo -n @ && cat /dev/urandom | env LC_CTYPE=C tr -dc [:alnum:] | head -c 15 && echo
+```
 
 Now log into your mysql database with the root account, using the password you created and saved earlier (during the mysql_secure_installation script run):
 
-    mysql -u root -p
+```bash
+mysql -u root -p
+```
+
 
 This will prompt you for the MySQL root user’s password, and then give you a database shell. This shell will let you enter the following commands to create the WordPress database and user, along with appropriate permissions. Swap out ‘yoursite’ for your truncated domain name. This name can't contain any punctuation or special characters.
 
@@ -195,32 +209,37 @@ Now it's time to actually download and install the WordPress application.
 
 Become your site user (named tutorialinux in my case) and download the WordPress application:
 
-    su - tutorialinux
-    cd
-    wget https://wordpress.org/latest.tar.gz
+```bash
+su - tutorialinux
+cd
+wget https://wordpress.org/latest.tar.gz
+```
 
 
 ### Extract Wordpress Archive (+ Clean Up)
 
-    tar zxf latest.tar.gz
-    rm latest.tar.gz
+```bash
+tar zxf latest.tar.gz
+rm latest.tar.gz
+```
 
 
 ### Rename the extracted 'wordpress' directory
 
-    mv wordpress public_html
-
+```bash
+mv wordpress public_html
+```
 
 ### Exit the unprivileged user's shell and become root again 
 
-    ctrl-d (+ENTER)
+Exit the website user's shell with `ctrl-d`.
 
 
 ### Set proper file permissions on your site files
 
 Make sure you're in your user's home/public_html directory. I'm still using the WEBSITEUSER variable that we set earlier -- in my case it's set to `tutorialinux`:
 
-```
+```bash
 cd /home/$WEBSITEUSER/public_html
 chown -R $WEBSITEUSER:www-data .
 find . -type d -exec chmod 755 {} \;
@@ -229,8 +248,10 @@ find . -type f -exec chmod 644 {} \;
 
 ## Restart your services
 
-    systemctl restart php8.1-fpm
-    systemctl restart nginx
+```bash
+systemctl restart php8.3-fpm
+systemctl restart nginx
+```
 
 
 ## Optional: Set up DNS
@@ -244,10 +265,12 @@ If you don't have a domain name yet (or it's not set up with an A record to poin
 
 Make these changes on the local Linux machine you're using as a 'base' to go through this course, **not* on your remote web server that's running the WordPress site**:
 
-```
+```bash
 nano /etc/hosts
 ```
+
 Add two lines like the following, with the IP and hostnames replaced by your WordPress server's IP address and your domain name, respectively:
+
 ```
 1.2.3.4    tutorialinux.com
 1.2.3.4    www.tutorialinux.com
@@ -264,4 +287,7 @@ You'll be able to run the installer by navigating to your server IP address in a
 
 ### Secure the wp-config.php file so other users can’t read DB credentials
 
-    chmod 640 /home/tutorialinux/public_html/wp-config.php
+```bash
+chmod 640 /home/tutorialinux/public_html/wp-config.php
+```
+

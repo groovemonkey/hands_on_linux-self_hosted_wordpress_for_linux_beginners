@@ -4,7 +4,7 @@ Execute all of the following commands as root (`sudo -i`).
 
 ## Install the PHP extensions we need for WordPress
 
-    apt install php-curl php-common php-imagick php-mbstring php-xml php-zip php-json php-xmlrpc php-gd
+    apt install php-curl php-common php-imagick php-mbstring php-xml php-zip php-json php-xmlrpc php-gd php-intl
 
 Now ensure that the directory for php-fpm sockets exists
 
@@ -13,25 +13,25 @@ Now ensure that the directory for php-fpm sockets exists
 
 ## Create the PHP and php-fpm configuration files (and back up the originals)
 
-    mv /etc/php/8.1/fpm/php-fpm.conf /etc/php/8.1/fpm/php-fpm.conf.ORIG
-    nano /etc/php/8.1/fpm/php-fpm.conf
+    mv /etc/php/8.3/fpm/php-fpm.conf /etc/php/8.3/fpm/php-fpm.conf.ORIG
+    nano /etc/php/8.3/fpm/php-fpm.conf
 
 Add the following content:
 
     [global]
-    pid = /run/php/php8.1-fpm.pid
+    pid = /run/php/php8.3-fpm.pid
     error_log = /var/log/php-fpm.log
-    include=/etc/php/8.1/fpm/pool.d/*.conf
+    include=/etc/php/8.3/fpm/pool.d/*.conf
 
 Remove the original (default) pool:
 
-    rm /etc/php/8.1/fpm/pool.d/www.conf
+    rm /etc/php/8.3/fpm/pool.d/www.conf
 
 
 
-Create a *new* default pool configuration at /etc/php/8.1/fpm/pool.d/www.conf with the following content:
+Create a *new* default pool configuration at /etc/php/8.3/fpm/pool.d/www.conf with the following content:
 
-`nano /etc/php/8.1/fpm/pool.d/www.conf`
+`nano /etc/php/8.3/fpm/pool.d/www.conf`
 
     [default]
     security.limit_extensions = .php
@@ -55,8 +55,8 @@ This new default pool won't be used, but I'm creating it here to prevent new stu
 
 Rename the original file here and then create a new one:
 
-    mv /etc/php/8.1/fpm/php.ini /etc/php/8.1/fpm/php.ini.ORIG
-    nano /etc/php/8.1/fpm/php.ini
+    mv /etc/php/8.3/fpm/php.ini /etc/php/8.3/fpm/php.ini.ORIG
+    nano /etc/php/8.3/fpm/php.ini
 
 Paste in the content below:
 
@@ -238,5 +238,5 @@ Paste in the content below:
 
 ... but if you were, you'd restart php-fpm right now, with:
 
-    systemctl restart php8.1-fpm
+    systemctl restart php8.3-fpm
 

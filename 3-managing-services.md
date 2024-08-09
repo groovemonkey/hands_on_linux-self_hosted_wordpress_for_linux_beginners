@@ -5,6 +5,6 @@ If you're logged in as the root user (or you've switched to the root user with `
 ## Start your services (and enable them at boot)
 
 ```
-sudo systemctl start nginx php8.1-fpm monit
-sudo systemctl enable mysql nginx php8.1-fpm monit
+sudo systemctl start nginx php8.3-fpm monit
+sudo systemctl enable mysql nginx php8.3-fpm monit
 ```
