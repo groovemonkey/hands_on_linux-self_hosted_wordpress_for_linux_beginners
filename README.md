@@ -9,7 +9,8 @@ To sign up for your own DigitalOcean account where you can provision a server to
 #### August 2024
 - Updated instructions for Ubuntu 24.04
 - Added a package to install the php-intl extension (recommended by WordPress)
-- improved formatting for bash commands
+- Improved formatting for bash commands
+- Updated Packer scripts
 
 #### December 2022
 - New and improved MySQL root password / secure_installation instructions.
