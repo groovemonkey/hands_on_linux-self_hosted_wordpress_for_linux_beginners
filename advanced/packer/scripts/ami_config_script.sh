@@ -18,16 +18,12 @@ sudo apt-get install mysql-server -y
 # I'm not installing monit here
 sudo apt-get install nginx php-mysql php-fpm -y
 
-
 # From https://github.com/groovemonkey/hands_on_linux-self_hosted_wordpress_for_linux_beginners/blob/master/3-managing-services.md
-sudo systemctl start nginx php8.1-fpm
-sudo systemctl enable mysql nginx php8.1-fpm
+sudo systemctl start nginx php8.3-fpm
+sudo systemctl enable mysql nginx php8.3-fpm
 
 # Modules from https://make.wordpress.org/hosting/handbook/server-environment/#php-extensions
-sudo apt-get install -y php-curl php-common php-imagick php-mbstring php-xml php-zip php-json php-xmlrpc php-gd
-
-# TODO not found
-# php-openssl php-pcre php-hash
+sudo apt-get install -y php-curl php-common php-imagick php-mbstring php-xml php-zip php-json php-xmlrpc php-gd php-intl
 
 # some nginx config
 sudo mkdir -p /usr/share/nginx/cache/fcgi
@@ -36,4 +32,4 @@ sudo rm /etc/nginx/sites-enabled/default
 # some php config
 # TODO in 22.04 this is naturally in /run/php/, e.g. /run/php/php-fpm.sock
 sudo mkdir /run/php-fpm
-# I am choosing to leave the default php-fpm conf because it's fine (/etc/php/8.1/fpm/php-fpm.conf)
+# I am choosing to leave the default php-fpm conf because it's fine (/etc/php/8.3/fpm/php-fpm.conf)

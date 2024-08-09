@@ -13,19 +13,19 @@ source "amazon-ebs" "ubuntu" {
   region        = "us-west-2"
   source_ami_filter {
     filters = {
-      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+      name                = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
     most_recent = true
     owners      = ["099720109477"]
   }
-  ssh_username = "ubuntu"
+  ssh_username            = "ubuntu"
   temporary_key_pair_type = "ed25519"
 }
 
 build {
-  name    = "packer-wordpress-tutorialinux-aws"
+  name = "packer-wordpress-tutorialinux-aws"
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
@@ -39,15 +39,15 @@ build {
     # TODO mysql secure install: https://github.com/groovemonkey/hands_on_linux-self_hosted_wordpress_for_linux_beginners/blob/master/6-set-up-mysql-database.md
   }
   provisioner "file" {
-    source = "./config/nginx.conf"
+    source      = "./config/nginx.conf"
     destination = "~/nginx.conf"
   }
   provisioner "file" {
-    source = "./config/wordpress_nginx.conf"
+    source      = "./config/wordpress_nginx.conf"
     destination = "~/wordpress_nginx.conf"
   }
   provisioner "file" {
-    source = "config/wordpress_phpfpm.conf"
+    source      = "config/wordpress_phpfpm.conf"
     destination = "~/phppool.conf"
   }
   provisioner "shell" {
@@ -55,7 +55,7 @@ build {
     inline = [
       "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
       "sudo mv ~/wordpress_nginx.conf /etc/nginx/conf.d/tutorialinux.conf",
-      "sudo mv ~/phppool.conf /etc/php/8.1/fpm/pool.d/tutorialinux.conf",
+      "sudo mv ~/phppool.conf /etc/php/8.3/fpm/pool.d/tutorialinux.conf",
     ]
   }
   provisioner "shell" {
